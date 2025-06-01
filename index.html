@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Open Your Invitation</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      background: #f5f5fa;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+      font-family: 'Segoe UI', Arial, sans-serif;
+    }
+    h1 {
+      margin-bottom: 40px;
+      color: #333;
+      font-weight: 600;
+      letter-spacing: 1px;
+    }
+    .envelope-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .envelope-img {
+      width: 220px;
+      height: 140px;
+      object-fit: contain;
+      cursor: pointer;
+      animation: vibrate 0.5s infinite;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+      border-radius: 8px;
+      background: #fff;
+      border: 2px solid #e0e0e0;
+      transition: box-shadow 0.2s;
+      z-index: 1;
+      position: relative;
+      display: block;
+    }
+    @keyframes vibrate {
+      0% { transform: translate(0, 0) rotate(-1deg);}
+      20% { transform: translate(-2px, 2px) rotate(1deg);}
+      40% { transform: translate(2px, -2px) rotate(-1deg);}
+      60% { transform: translate(-2px, 2px) rotate(1deg);}
+      80% { transform: translate(2px, -2px) rotate(-1deg);}
+      100% { transform: translate(0, 0) rotate(0);}
+    }
+    .envelope-img.open {
+      animation: none;
+      opacity: 0.7;
+      filter: blur(2px);
+      transition: opacity 0.5s, filter 0.5s;
+    }
+    .envelope-shadow {
+      position: absolute;
+      bottom: -12px;
+      left: 50%;
+      width: 120px;
+      height: 24px;
+      background: radial-gradient(ellipse at center, #bbb 0%, transparent 80%);
+      transform: translateX(-50%);
+      z-index: 0;
+      opacity: 0.3;
+      filter: blur(2px);
+    }
+    .open-text {
+      margin-top: 32px;
+      color: #555;
+      font-size: 1.1em;
+      letter-spacing: 0.5px;
+      animation: fadeIn 1.2s 0.5s both;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(16px);}
+      to { opacity: 1; transform: translateY(0);}
+    }
+  </style>
+</head>
+<body>
+  <h1>Your Invitation Awaits</h1>
+  <div class="envelope-container" style="position:relative;">
+    <!-- Change the src below to your envelope image -->
+    <img src="pics/envelope.jpg" alt="Envelope" class="envelope-img" id="envelope-img">
+    <div class="envelope-shadow"></div>
+    <div class="open-text">Tap to open the envelope</div>
+  </div>
+  <script>
+    const envelopeImg = document.getElementById('envelope-img');
+    envelopeImg.addEventListener('click', function() {
+      envelopeImg.classList.add('open');
+      envelopeImg.style.animation = 'none';
+      // Vibrate device if supported
+      if (navigator.vibrate) {
+        navigator.vibrate([100, 50, 100]);
+      }
+      setTimeout(() => {
+        window.location.href = 'invit.html';
+      }, 900);
+    });
+  </script>
+</body>
+</html>
